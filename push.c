@@ -44,14 +44,19 @@ void push(stack_t **stack, unsigned int line_number)
  */
 int check_string_int(char *s)
 {
-	unsigned int i;
+	unsigned int i = 0;
 
-	for (i = 0; i < strlen(s); i++)
+	if (s[0] == '-')
 	{
-		if (i == 0 && s[i] == '-')
-			continue;
-		if (isdigit(s[i]) == 0)
-			return 0;
+		i++;
+		if (s[i] == '\0')
+			return (0);
 	}
-	return 1;
+
+	for (; s[i] != '\0'; i++)
+	{
+		if (isdigit(s[i]) == 0)
+			return (0);
+	}
+	return (1);
 }

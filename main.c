@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 	unsigned int line_number = 1;
 
 	gVar.buff = NULL;
-	gVar.stack = NULL;	
+	gVar.stack = NULL;
 	if (argc != 2)
 	{
 		fprintf(stdout, "USAGE: monty file\n");
