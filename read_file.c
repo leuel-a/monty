@@ -27,7 +27,11 @@ void get_instruction(unsigned int line_number)
 	int i, size;
 
 	size = sizeof(instruction) / sizeof(instruction[0]);
-	opcode = strtok(buff, " ");
+	opcode = strtok(buff, " \t\n");
+
+	if (opcode == NULL)
+		return;
+
 	for (i = 0; i < size; i++)
 	{
 		if (strcmp(opcode, instruction[i].opcode) == 0)
