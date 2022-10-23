@@ -16,7 +16,8 @@ int main(int argc, char **argv)
 	size_t n = 0;
 	unsigned int line_number = 1;
 
-	define_gVar();
+	gVar.buff = NULL;
+	gVar.stack = NULL;	
 	if (argc != 2)
 	{
 		fprintf(stdout, "USAGE: monty file\n");
@@ -35,6 +36,8 @@ int main(int argc, char **argv)
 		parse_line(line_number);
 		line_number++;
 	}
+	fclose(fd);
+	free_stack();
 	exit(EXIT_SUCCESS);
 }
 
@@ -94,12 +97,19 @@ int get_instruction(char *opcode, unsigned int line_number)
 }
 
 /**
- * define_gVar - will define the global variables
+ * free_stack - this function will free the stack
  *
  * Return: Nothing
  */
-void define_gVar(void)
+void free_stack(void)
 {
-	gVar.buff = NULL;
-	gVar.stack = NULL;
+	stack_t *temp, *head;
+
+	head = gVar.stack;
+	while (head != NULL)
+	{
+		temp = head;
+		head = head->next;
+		free(temp);
+	}
 }

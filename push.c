@@ -48,6 +48,8 @@ int check_string_int(char *s)
 
 	for (i = 0; i < strlen(s); i++)
 	{
+		if (i == 0 && s[i] == '-')
+			continue;
 		if (isdigit(s[i]) == 0)
 			return 0;
 	}

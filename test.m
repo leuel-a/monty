@@ -1,2 +1,2 @@
-push 8c
+push -1j
 pall
