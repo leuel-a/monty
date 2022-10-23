@@ -58,5 +58,6 @@ int get_instruction(char *opcode, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void define_gVar(void);
+int check_string_int(char *s);
 
 #endif

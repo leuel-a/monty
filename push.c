@@ -13,8 +13,8 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *new;
 
 	num = strtok(NULL, " \t\n");
-	
-	if (num == NULL || isdigit(num[0]) == 0)
+
+	if (num == NULL || check_string_int(num) == 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
@@ -33,4 +33,23 @@ void push(stack_t **stack, unsigned int line_number)
 	if (*stack != NULL)
 		(*stack)->prev = new;
 	*stack = new;
+}
+
+/**
+ * check_string_int - will check if a string is a valid integer
+ * @s: the string to be checked
+ *
+ * Return: If the string is a valid integer, it returns 1. If not,
+ * it return 0, and errno is set appropriately.
+ */
+int check_string_int(char *s)
+{
+	unsigned int i;
+
+	for (i = 0; i < strlen(s); i++)
+	{
+		if (isdigit(s[i]) == 0)
+			return 0;
+	}
+	return 1;
 }
