@@ -17,7 +17,7 @@ void read_file(FILE *fp)
 	}
 }
 
-void get_instruction(unsigned int line_number)
+void  get_instruction(unsigned int line_number)
 {
 	instruction_t instruction[] = {
 		{"pall", pall},
@@ -37,7 +37,10 @@ void get_instruction(unsigned int line_number)
 		if (strcmp(opcode, instruction[i].opcode) == 0)
 		{
 			instruction[i].f(&stack, line_number);
-			break;
+			return;
 		}
 	}
+
+	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
+	exit(EXIT_FAILURE);
 }
