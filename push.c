@@ -23,6 +23,11 @@ void push(stack_t **stack, unsigned int line_number)
 	new->prev = NULL;
 	new->next = *stack;
 	str = strtok(NULL, " \t\n");
+	if (str == NULL)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 	checkString = checkStringForDigit(str);
 	if (checkString == -1)
 	{
