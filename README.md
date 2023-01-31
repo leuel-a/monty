@@ -1,1 +1,3 @@
-<h1>C - Stacks, Queues - LIFO, FIFO</h1>
+# C - Stack, Queues - LIFO, FIFO
+
+In this project, we will be tackling the **Stack** and **Queue** data structures.
