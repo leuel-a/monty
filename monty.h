@@ -1,12 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-#define _GNU_SOURCE
-#include <stdlib.h>
-#include <stdio.h>
-#include <ctype.h>
-#include <string.h>
-
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -18,9 +12,9 @@
  */
 typedef struct stack_s
 {
-	int n;
-	struct stack_s *prev;
-	struct stack_s *next;
+        int n;
+        struct stack_s *prev;
+        struct stack_s *next;
 } stack_t;
 
 /**
@@ -33,31 +27,24 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+        char *opcode;
+        void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/**
- * struct global_s - global variables
- * @buff: buffer to hold the line extracted from file
- * @stack: stack
- *
- * Description: global variables that will be used in the
- * stack operations
- */
-typedef struct global_s
-{
-	char *buff;
-	stack_t *stack;
-} global_t;
+typedef void (*instructionFunction)(stack_t **stack, unsigned int l);
 
-extern global_t gVar;
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-void parse_line(unsigned int line_number);
-int get_instruction(char *opcode, unsigned int line_number);
+extern char *lineptr;
+
+char **splitString(char *str, size_t *numOfStrings);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
-int check_string_int(char *s);
-void free_stack(void);
+instructionFunction findFunction(char *str);
+int checkStringForDigit(char *str);
 
-#endif
+#endif /* MONTY_H */

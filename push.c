@@ -1,62 +1,54 @@
 #include "monty.h"
 
 /**
- * push -  pushes an element to a stack_t
- * @stack: the stack where the new element will be added
- * @line_number: the line number where the opcode is
+ * push - pushes an element to the stack
+ * @stack: the stack it self
+ * @line_number: the line number of the operation code
  *
- * Return: Nothing
- */
+ * Return: Always nothing.
+*/
 void push(stack_t **stack, unsigned int line_number)
 {
-	char *num;
 	stack_t *new;
+	int checkString;
+	char *str;
 
-	num = strtok(NULL, " \t\n");
-
-	if (num == NULL || check_string_int(num) == 0)
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-
+	(void) line_number;
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-
-	new->n = atoi(num);
-	new->next = *stack;
 	new->prev = NULL;
-	if (*stack != NULL)
-		(*stack)->prev = new;
+	new->next = *stack;
+	str = strtok(NULL, " \t\n");
+	checkString = checkStringForDigit(str);
+	if (checkString == -1)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	new->n = atoi(str);
 	*stack = new;
 }
 
 /**
- * check_string_int - will check if a string is a valid integer
- * @s: the string to be checked
+ * checkStringForDigit - checks whether a string is a valid digit
+ * @str: the string to be checked
  *
- * Return: If the string is a valid integer, it returns 1. If not,
- * it return 0, and errno is set appropriately.
- */
-int check_string_int(char *s)
+ * Return: If the string is a valid digit, it returns 0. Otherwise,
+ * it returns -1.
+*/
+int checkStringForDigit(char *str)
 {
-	unsigned int i = 0;
+	int i = 0;
 
-	if (s[0] == '-')
+	while (str[i] != '\0')
 	{
+		if (isdigit(str[i]) == 0)
+			return (-1);
 		i++;
-		if (s[i] == '\0')
-			return (0);
 	}
-
-	for (; s[i] != '\0'; i++)
-	{
-		if (isdigit(s[i]) == 0)
-			return (0);
-	}
-	return (1);
+	return (0);
 }
